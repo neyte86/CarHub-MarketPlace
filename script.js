@@ -31,3 +31,21 @@ alert("Searching for: " + input.value);
 alert("Please enter a car name");
 }
 }
+document.getElementById("language").addEventListener("change", function() {
+    const lang = this.value;
+
+    if(lang === "ar"){
+        document.querySelector(".hero h1").innerText = "بيع وشراء السيارات عالمياً";
+        document.querySelector(".section-title").innerText = "البحث عن السيارات";
+    }
+
+    if(lang === "en"){
+        document.querySelector(".hero h1").innerText = "Buy & Sell Cars Worldwide";
+        document.querySelector(".section-title").innerText = "Search Cars";
+    }
+
+    if(lang === "fr"){
+        document.querySelector(".hero h1").innerText = "Acheter et vendre des voitures";
+        document.querySelector(".section-title").innerText = "Rechercher une voiture";
+    }
+});
