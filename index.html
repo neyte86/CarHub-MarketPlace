@@ -1,91 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CarHub Market Place</title>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-<div class="logo">CarHub Market Place</div>
+<!-- ===== Top bar ===== -->
+<header class="topbar">
+  <div class="logo">CarHub <span>Market Place</span></div>
 
-<select id="language">
-<option value="en">English</option>
-<option value="fr">Français</option>
-<option value="ar">العربية</option>
-</select>
+  <div class="topbar-actions">
+    <button class="auth-pill" id="authBtn" data-i18n="auth_btn">تسجيل الدخول</button>
+    <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
-<section class="hero">
-<h1>Buy & Sell Cars Worldwide</h1>
-<p>European • Chinese • Gulf • Algerian Markets</p>
+<!-- ===== Off-canvas menu ===== -->
+<div class="overlay" id="overlay"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="logo">CarHub</div>
+    <button class="close-btn" id="closeBtn" aria-label="Close">&times;</button>
+  </div>
 
-<a href="#cars" class="btn">Buy Car</a>
-<a href="#sell" class="btn">Sell Car</a>
+  <ul class="drawer-list">
+    <li><a href="#top" class="drawer-link" data-i18n="nav_home">الرئيسية</a></li>
+    <li><a href="#buy" class="drawer-link" data-i18n="nav_buy">شراء سيارة</a></li>
+    <li><a href="#sell" class="drawer-link" data-i18n="nav_sell">بيع سيارتك</a></li>
+    <li><a href="#markets" class="drawer-link" data-i18n="nav_markets">الأسواق</a></li>
+  </ul>
+
+  <div class="drawer-section">
+    <div class="drawer-label" data-i18n="lang_label">اللغة</div>
+    <div class="lang-options">
+      <button class="lang-opt" data-lang="ar">العربية</button>
+      <button class="lang-opt" data-lang="fr">Français</button>
+      <button class="lang-opt" data-lang="en">English</button>
+    </div>
+  </div>
+
+  <div class="drawer-section">
+    <div class="drawer-label" data-i18n="account_label">الحساب</div>
+    <button class="drawer-cta" id="drawerAuthBtn" data-i18n="create_account">إنشاء حساب / تسجيل الدخول</button>
+    <button class="drawer-guest" id="guestBtn" data-i18n="guest_btn">المتابعة كزائر</button>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero" id="top">
+  <p class="eyebrow" data-i18n="hero_eyebrow">جزائر • أوروبا • الصين • الخليج • أمريكا</p>
+  <h1 data-i18n="hero_title">اشترِ وبِع سيارتك في السوق الذي يناسبك</h1>
+  <p class="hero-sub" data-i18n="hero_sub">منصّة واحدة تجمع خمسة أسواق للسيارات، بحث دقيق وعروض بيع مباشرة من الأفراد والمعارض.</p>
+
+  <div class="hero-actions">
+    <a href="#buy" class="btn btn-primary" data-i18n="cta_buy">تصفّح السيارات</a>
+    <a href="#sell" class="btn btn-outline" data-i18n="cta_sell">أعرض سيارتك للبيع</a>
+  </div>
 </section>
 
-<section>
-<h2 class="section-title">Search Cars</h2>
+<!-- ===== Search / Filter ===== -->
+<section class="search-panel" id="buy">
+  <h2 class="section-title" data-i18n="search_title">ابحث عن سيارتك</h2>
 
-<div style="padding:20px;">
-<input
-id="searchInput"
-type="text"
-placeholder="BMW, Mercedes, Toyota..."
->
+  <div class="search-row">
+    <input id="searchInput" type="text" data-i18n-placeholder="search_placeholder" placeholder="BMW, Mercedes, Toyota...">
 
-<button
-class="btn"
-onclick="searchCars()">
-Search
-</button>
-</div>
+    <select id="marketFilter">
+      <option value="all" data-i18n="opt_all_markets">كل الأسواق</option>
+      <option value="dz" data-i18n="market_dz">السوق الجزائري</option>
+      <option value="eu" data-i18n="market_eu">السوق الأوروبي</option>
+      <option value="cn" data-i18n="market_cn">السوق الصيني</option>
+      <option value="gulf" data-i18n="market_gulf">السوق الخليجي</option>
+      <option value="us" data-i18n="market_us">السوق الأمريكي</option>
+    </select>
+
+    <select id="typeFilter">
+      <option value="all" data-i18n="opt_all_types">كل الأنواع</option>
+      <option value="suv" data-i18n="type_suv">دفع رباعي</option>
+      <option value="sedan" data-i18n="type_sedan">سيدان</option>
+      <option value="electric" data-i18n="type_electric">كهربائية</option>
+    </select>
+
+    <button class="btn btn-primary" id="searchBtn" data-i18n="btn_search">بحث</button>
+  </div>
 </section>
 
-<section id="markets">
-<h2 class="section-title">Markets</h2>
+<!-- ===== Markets ===== -->
+<section id="markets" class="markets">
+  <h2 class="section-title" data-i18n="markets_title">اختر السوق</h2>
+  <p class="section-sub" data-i18n="markets_sub">اضغط على أي سوق لعرض سياراته مباشرة</p>
 
-<div class="card">
-<h3>🇪🇺 European Market</h3>
-<p>BMW • Mercedes • Audi • Volkswagen</p>
-</div>
+  <div class="market-grid">
+    <button class="market-card" data-market="dz">
+      <span class="flag">🇩🇿</span>
+      <h3 data-i18n="market_dz">السوق الجزائري</h3>
+      <p data-i18n="market_dz_desc">سيارات جديدة ومستعملة</p>
+    </button>
 
-<div class="card">
-<h3>🇨🇳 Chinese Market</h3>
-<p>BYD • Chery • Geely • MG</p>
-</div>
+    <button class="market-card" data-market="eu">
+      <span class="flag">🇪🇺</span>
+      <h3 data-i18n="market_eu">السوق الأوروبي</h3>
+      <p>BMW • Mercedes • Audi • VW</p>
+    </button>
 
-<div class="card">
-<h3>🇸🇦 Gulf Market</h3>
-<p>Toyota • Lexus • Nissan • GMC</p>
-</div>
+    <button class="market-card" data-market="cn">
+      <span class="flag">🇨🇳</span>
+      <h3 data-i18n="market_cn">السوق الصيني</h3>
+      <p>BYD • Chery • Geely • MG</p>
+    </button>
 
-<div class="card">
-<h3>🇩🇿 Algerian Market</h3>
-<p>New & Used Cars Available</p>
-</div>
+    <button class="market-card" data-market="gulf">
+      <span class="flag">🇸🇦</span>
+      <h3 data-i18n="market_gulf">السوق الخليجي</h3>
+      <p>Toyota • Lexus • Nissan • GMC</p>
+    </button>
+
+    <button class="market-card" data-market="us">
+      <span class="flag">🇺🇸</span>
+      <h3 data-i18n="market_us">السوق الأمريكي</h3>
+      <p>Ford • Jeep • Tesla • Chevrolet</p>
+    </button>
+  </div>
 </section>
 
+<!-- ===== Featured cars ===== -->
 <section class="featured-cars">
-<h2 class="section-title">Featured Cars</h2>
+  <h2 class="section-title" data-i18n="featured_title">سيارات مميزة</h2>
+  <p class="section-sub" id="resultsCount"></p>
 
-<div class="card">
-<h3>🚘 BMW X5</h3>
-<p>Price: €45,000</p>
-</div>
-
-<div class="card">
-<h3>🚘 Mercedes C-Class</h3>
-<p>Price: €38,000</p>
-</div>
-
-<div class="card">
-<h3>🚘 Audi A6</h3>
-<p>Price: €42,000</p>
-</div>
-
+  <div class="car-grid" id="carGrid"></div>
 </section>
 
+<!-- ===== Sell your car ===== -->
+<section class="sell-panel" id="sell">
+  <div class="sell-box">
+    <h2 data-i18n="sell_title">عندك سيارة تبيعها؟</h2>
+    <p data-i18n="sell_sub">أضف إعلانك في دقيقتين وسيراه آلاف المشترين في سوقك المستهدف.</p>
+    <button class="btn btn-primary" id="sellCtaBtn" data-i18n="sell_cta">عرض سيارتي للبيع</button>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p data-i18n="footer_note">يمكنك تصفح CarHub بحرية كزائر — الحساب مطلوب فقط عند نشر إعلان أو التواصل مع بائع.</p>
+</footer>
+
+<!-- ===== Auth modal ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h2 data-i18n="modal_title">مرحبًا بك في CarHub</h2>
+    <p class="modal-sub" data-i18n="modal_sub">سجّل دخولك للوصول إلى إعلاناتك ومحادثاتك، أو تابع كزائر.</p>
+
+    <div class="modal-tabs">
+      <button class="tab-btn active" data-tab="login" data-i18n="tab_login">تسجيل الدخول</button>
+      <button class="tab-btn" data-tab="register" data-i18n="tab_register">إنشاء حساب</button>
+    </div>
+
+    <form class="modal-form" id="loginForm">
+      <input type="email" data-i18n-placeholder="ph_email" placeholder="البريد الإلكتروني" required>
+      <input type="password" data-i18n-placeholder="ph_password" placeholder="كلمة المرور" required>
+      <button type="submit" class="btn btn-primary full" data-i18n="tab_login">تسجيل الدخول</button>
+    </form>
+
+    <form class="modal-form hidden" id="registerForm">
+      <input type="text" data-i18n-placeholder="ph_name" placeholder="الاسم الكامل" required>
+      <input type="email" data-i18n-placeholder="ph_email" placeholder="البريد الإلكتروني" required>
+      <input type="password" data-i18n-placeholder="ph_password" placeholder="كلمة المرور" required>
+      <button type="submit" class="btn btn-primary full" data-i18n="tab_register">إنشاء حساب</button>
+    </form>
+
+    <button class="guest-link" id="modalGuestBtn" data-i18n="guest_btn">المتابعة كزائر</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
