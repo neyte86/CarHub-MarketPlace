@@ -1,57 +1,278 @@
-button>
-  </div>
-</section>
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarHub Marketplace — Global Automotive Marketplace</title>
+<meta name="description" content="CarHub Marketplace is a global platform to buy and sell cars: search, compare, save and connect with trusted sellers worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- ===== Featured cars ===== -->
-<section class="featured-cars">
-  <h2 class="section-title" data-i18n="featured_title">سيارات مميزة</h2>
-  <p class="section-sub" id="resultsCount"></p>
+<!-- Set PAGE_BASE before script.js loads: from the root, internal pages live in /pages/ -->
+<script>const PAGE_BASE = "pages/";</script>
 
-  <div class="car-grid" id="carGrid"></div>
-</section>
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-main">CARHUB</span>
+      <span class="logo-sub">MARKETPLACE</span>
+    </a>
 
-<!-- ===== Sell your car ===== -->
-<section class="sell-panel" id="sell">
-  <div class="sell-box">
-    <h2 data-i18n="sell_title">عندك سيارة تبيعها؟</h2>
-    <p data-i18n="sell_sub">أضف إعلانك في دقيقتين وسيراه آلاف المشترين في سوقك المستهدف.</p>
-    <button class="btn btn-primary" id="sellCtaBtn" data-i18n="sell_cta">عرض سيارتي للبيع</button>
-  </div>
-</section>
+    <nav class="nav-menu" id="nav-menu">
+      <a href="index.html" class="nav-link active" data-i18n="nav_home">Home</a>
+      <a href="pages/cars.html" class="nav-link" data-i18n="nav_cars">Cars</a>
+      <a href="pages/sell.html" class="nav-link" data-i18n="nav_sell">Sell Your Car</a>
+      <a href="pages/dealers.html" class="nav-link" data-i18n="nav_dealers">Dealers</a>
+      <a href="pages/brands.html" class="nav-link" data-i18n="nav_brands">Brands</a>
+      <a href="pages/countries.html" class="nav-link" data-i18n="nav_countries">Countries</a>
+      <a href="pages/import-export.html" class="nav-link" data-i18n="nav_import">Import / Export</a>
+    </nav>
 
-<footer class="site-footer">
-  <p data-i18n="footer_note">يمكنك تصفح CarHub بحرية كزائر — الحساب مطلوب فقط عند نشر إعلان أو التواصل مع بائع.</p>
-</footer>
+    <div class="nav-actions">
+      <a href="pages/favorites.html" class="icon-link" title="Favorites" data-i18n-title="nav_favorites">
+        <span class="icon">♥</span><span class="badge" id="fav-count">0</span>
+      </a>
+      <a href="pages/messages.html" class="icon-link" title="Messages" data-i18n-title="nav_messages">
+        <span class="icon">✉</span>
+      </a>
 
-<!-- ===== Auth modal ===== -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <button class="modal-close" id="modalClose">&times;</button>
-    <h2 data-i18n="modal_title">مرحبًا بك في CarHub</h2>
-    <p class="modal-sub" data-i18n="modal_sub">سجّل دخولك للوصول إلى إعلاناتك ومحادثاتك، أو تابع كزائر.</p>
+      <select id="lang-select" class="select-pill" aria-label="Language">
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="ar">AR</option>
+      </select>
 
-    <div class="modal-tabs">
-      <button class="tab-btn active" data-tab="login" data-i18n="tab_login">تسجيل الدخول</button>
-      <button class="tab-btn" data-tab="register" data-i18n="tab_register">إنشاء حساب</button>
+      <select id="currency-select" class="select-pill" aria-label="Currency">
+        <option value="EUR">EUR</option>
+        <option value="USD">USD</option>
+        <option value="GBP">GBP</option>
+        <option value="DZD">DZD</option>
+      </select>
+
+      <a href="pages/login.html" class="btn btn-outline btn-sm" data-i18n="nav_login">Login</a>
+      <a href="pages/register.html" class="btn btn-primary btn-sm" data-i18n="nav_register">Register</a>
     </div>
 
-    <form class="modal-form" id="loginForm">
-      <input type="email" data-i18n-placeholder="ph_email" placeholder="البريد الإلكتروني" required>
-      <input type="password" data-i18n-placeholder="ph_password" placeholder="كلمة المرور" required>
-      <button type="submit" class="btn btn-primary full" data-i18n="tab_login">تسجيل الدخول</button>
-    </form>
-
-    <form class="modal-form hidden" id="registerForm">
-      <input type="text" data-i18n-placeholder="ph_name" placeholder="الاسم الكامل" required>
-      <input type="email" data-i18n-placeholder="ph_email" placeholder="البريد الإلكتروني" required>
-      <input type="password" data-i18n-placeholder="ph_password" placeholder="كلمة المرور" required>
-      <button type="submit" class="btn btn-primary full" data-i18n="tab_register">إنشاء حساب</button>
-    </form>
-
-    <button class="guest-link" id="modalGuestBtn" data-i18n="guest_btn">المتابعة كزائر</button>
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-</div>
 
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html" data-i18n="nav_home">Home</a>
+    <a href="pages/cars.html" data-i18n="nav_cars">Cars</a>
+    <a href="pages/sell.html" data-i18n="nav_sell">Sell Your Car</a>
+    <a href="pages/dealers.html" data-i18n="nav_dealers">Dealers</a>
+    <a href="pages/brands.html" data-i18n="nav_brands">Brands</a>
+    <a href="pages/countries.html" data-i18n="nav_countries">Countries</a>
+    <a href="pages/import-export.html" data-i18n="nav_import">Import / Export</a>
+    <a href="pages/favorites.html" data-i18n="nav_favorites">Favorites</a>
+    <a href="pages/messages.html" data-i18n="nav_messages">Messages</a>
+    <hr>
+    <a href="pages/login.html" data-i18n="nav_login">Login</a>
+    <a href="pages/register.html" data-i18n="nav_register">Register</a>
+  </div>
+</header>
+
+<main>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <p class="plate-tag">GLOBAL · AUTOMOTIVE · MARKETPLACE</p>
+        <h1 class="hero-title" data-i18n="hero_title">Find Your Dream Car Anywhere in the World.</h1>
+        <p class="hero-desc" data-i18n="hero_desc">Discover, compare and buy vehicles from trusted sellers around the world.</p>
+        <div class="hero-buttons">
+          <a href="pages/cars.html" class="btn btn-primary" data-i18n="btn_search_cars">Search Cars</a>
+          <a href="pages/sell.html" class="btn btn-outline-light" data-i18n="btn_sell_car">Sell Your Car</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://picsum.photos/seed/carhubhero/700/520" alt="Featured vehicle" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG;">
+      </div>
+    </div>
+
+    <!-- Search box -->
+    <div class="container">
+      <form class="search-box" id="search-form">
+        <div class="search-grid">
+          <div class="search-field">
+            <label for="s-brand" data-i18n="search_brand">Brand</label>
+            <select id="s-brand" name="brand"><option value="">Any</option></select>
+          </div>
+          <div class="search-field">
+            <label for="s-model" data-i18n="search_model">Model</label>
+            <input id="s-model" name="model" type="text" placeholder="e.g. 911">
+          </div>
+          <div class="search-field">
+            <label for="s-country" data-i18n="search_country">Country</label>
+            <select id="s-country" name="country"><option value="">Any</option></select>
+          </div>
+          <div class="search-field">
+            <label for="s-city" data-i18n="search_city">City</label>
+            <input id="s-city" name="city" type="text" placeholder="e.g. Berlin">
+          </div>
+          <div class="search-field">
+            <label for="s-minprice" data-i18n="search_min_price">Min Price</label>
+            <input id="s-minprice" name="minPrice" type="number" min="0" placeholder="0">
+          </div>
+          <div class="search-field">
+            <label for="s-maxprice" data-i18n="search_max_price">Max Price</label>
+            <input id="s-maxprice" name="maxPrice" type="number" min="0" placeholder="300000">
+          </div>
+          <div class="search-field">
+            <label for="s-year" data-i18n="search_year">Year</label>
+            <input id="s-year" name="year" type="number" min="1990" max="2026" placeholder="2022">
+          </div>
+          <div class="search-field">
+            <label for="s-fuel" data-i18n="search_fuel">Fuel</label>
+            <select id="s-fuel" name="fuel"><option value="">Any</option></select>
+          </div>
+          <div class="search-field">
+            <label for="s-transmission" data-i18n="search_transmission">Transmission</label>
+            <select id="s-transmission" name="transmission"><option value="">Any</option></select>
+          </div>
+          <div class="search-field">
+            <label for="s-body" data-i18n="search_body">Body Type</label>
+            <select id="s-body" name="body"><option value="">Any</option></select>
+          </div>
+        </div>
+        <div class="search-actions">
+          <button type="submit" class="btn btn-primary" data-i18n="btn_search_cars">Search</button>
+          <a href="pages/cars.html" class="btn btn-text" data-i18n="btn_advanced_search">Advanced Search</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORIES ============ -->
+  <section class="section categories">
+    <div class="container">
+      <h2 class="section-title" data-i18n="categories_title">Browse Categories</h2>
+      <div class="category-grid" id="category-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED CARS ============ -->
+  <section class="section featured-cars">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title" data-i18n="featured_title">Featured Cars</h2>
+        <a href="pages/cars.html" class="section-link" data-i18n="btn_advanced_search">View all cars →</a>
+      </div>
+      <div class="car-grid" id="featured-car-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ POPULAR BRANDS ============ -->
+  <section class="section brands-strip">
+    <div class="container">
+      <h2 class="section-title" data-i18n="brands_title">Popular Brands</h2>
+      <div class="brand-grid" id="brand-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ COUNTRIES ============ -->
+  <section class="section countries-section">
+    <div class="container">
+      <h2 class="section-title" data-i18n="countries_title">Browse by Country</h2>
+      <div class="country-grid" id="country-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="section how-it-works">
+    <div class="container">
+      <h2 class="section-title" data-i18n="how_title">How CarHub Works</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">1</span>
+          <h3 data-i18n="how_1">Find</h3>
+          <p>Search thousands of listings using powerful filters.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">2</span>
+          <h3 data-i18n="how_2">Connect</h3>
+          <p>Message verified sellers directly and ask questions.</p>
+        </div>
+        <div class="step-card">
+          <span class="step-number">3</span>
+          <h3 data-i18n="how_3">Buy</h3>
+          <p>Agree on terms and close the deal with confidence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SELL YOUR CAR CTA ============ -->
+  <section class="cta-banner">
+    <div class="container cta-content">
+      <h2 data-i18n="sell_title">Turn Your Car Into an Opportunity.</h2>
+      <a href="pages/sell.html" class="btn btn-primary" data-i18n="btn_sell_car">Sell Your Car</a>
+    </div>
+  </section>
+
+  <!-- ============ IMPORT / EXPORT CTA ============ -->
+  <section class="cta-banner cta-banner-alt">
+    <div class="container cta-content">
+      <h2 data-i18n="import_title">Buy Cars Internationally</h2>
+      <a href="pages/import-export.html" class="btn btn-outline-light" data-i18n="btn_calculate_import">Calculate Import Cost</a>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <span class="logo-main">CARHUB</span>
+      <p>Global Automotive Marketplace.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Marketplace</h4>
+      <a href="pages/cars.html">Cars</a>
+      <a href="pages/brands.html">Brands</a>
+      <a href="pages/countries.html">Countries</a>
+      <a href="pages/dealers.html">Dealers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="pages/about.html">About</a>
+      <a href="pages/contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="pages/import-export.html">Import / Export</a>
+      <a href="pages/messages.html">Messages</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Terms of Service</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <div class="footer-col">
+      <h4>Social</h4>
+      <div class="social-links">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom container">
+    <p>© 2026 CarHub Marketplace. Demo project — no real transactions.</p>
+  </div>
+</footer>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script src="data.js"></script>
 <script src="script.js"></script>
 </body>
-</html>
+  </html>
