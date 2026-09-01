@@ -20,3 +20,4 @@ document.getElementById("registerForm").addEventListener("submit", e=>{ e.preven
 
 /* ============ Init ============ */
 applyLanguage("ar");
+  
